@@ -1,4 +1,4 @@
-package ua.khai.yarovyi.scaner;
+package ua.khai.yarovyi.scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FolderScaner {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FolderScaner.class);
+public class FolderScanner {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FolderScanner.class);
 
     List<String> searchDocuments(String path) {
         File directory = new File(path);

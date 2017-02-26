@@ -8,9 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReferenceNumberReplacer implements NumberReplacer {
-    private static final String LITERATURE_REFERENCE = "'\\[[(0-9)+ (,)*]+\\]";
-    public static final int TEXT_POS = 0;
-
+    private static final int TEXT_POS = 0;
+    private static final String LITERATURE_REFERENCE = "'\\[([0-9]+(,)*)+\\]";
     private Pattern pattern = Pattern.compile(LITERATURE_REFERENCE);
 
     @Override

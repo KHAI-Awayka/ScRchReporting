@@ -8,9 +8,12 @@ import ua.khai.yarovyi.replace.NumberReplacer;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Unused on current phase
+ */
 public class ParagraphNumberReplacer implements NumberReplacer {
     private static final String THEME_PARAGRAPH = "[A-ZА-Я]{2,}.+";
-    private static final String SUB_THEME_PARAGRAPH = "[0-9\\.]*.+";
+    private static final String SUB_THEME_PARAGRAPH = "(0-9\\.0-9\\.)*.+";
 
     @Override
     public XWPFDocument replace(XWPFDocument document, int value) {

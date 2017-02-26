@@ -7,18 +7,34 @@ import ua.khai.yarovyi.exception.NoSuitableDocuments;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FolderScanner {
     private static final Logger LOGGER = LoggerFactory.getLogger(FolderScanner.class);
+    private static final String DOCX = ".docx";
 
-    List<String> searchDocuments(String path) {
+    public List<String> searchDocuments(String path) {
+        return searchDocuments(path, predicate -> true);
+    }
+
+    public List<String> searchDocuments(String path, Predicate<String> nameSearchCriteria) {
         File directory = new File(path);
-
-        if (directory.isDirectory() && directory.listFiles() != null) {
-            return Arrays.stream(directory.listFiles()).filter(File::isFile).filter(item -> item.getName().endsWith(".docx")).map(File::getAbsolutePath).collect(Collectors.toList());
+        if (directory.isDirectory()) {
+            return Arrays
+                    .stream(
+                            Optional
+                                    .ofNullable(directory.listFiles())
+                                    .orElseThrow(IllegalArgumentException::new))
+                    .filter(File::isFile)
+                    .filter(item -> item.getName().endsWith(DOCX))
+                    .filter(item -> nameSearchCriteria.test(item.getName()))
+                    .map(File::getAbsolutePath)
+                    .collect(Collectors.toList());
         }
-        LOGGER.warn("No Suitable documents at path : {}", path);
-        throw new NoSuitableDocuments("No Suitable documents at path : " + path);
+
+        LOGGER.warn("Illegal path : {}", path);
+        throw new NoSuitableDocuments("Illegal path : " + path);
     }
 }

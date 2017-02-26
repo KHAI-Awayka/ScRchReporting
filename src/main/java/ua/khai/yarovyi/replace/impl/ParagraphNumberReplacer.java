@@ -16,7 +16,7 @@ public class ParagraphNumberReplacer implements NumberReplacer {
     private static final String SUB_THEME_PARAGRAPH = "(0-9\\.0-9\\.)*.+";
 
     @Override
-    public XWPFDocument replace(XWPFDocument document, int value) {
+    public XWPFDocument replace(XWPFDocument document, long value) {
         document.getParagraphs()
                 .stream()
                 .filter(((Predicate<XWPFParagraph>) item -> item.getText().matches(THEME_PARAGRAPH))
@@ -25,7 +25,7 @@ public class ParagraphNumberReplacer implements NumberReplacer {
         return document;
     }
 
-    private void updateParagraphValues(XWPFParagraph paragraph, int value) {
+    private void updateParagraphValues(XWPFParagraph paragraph, long value) {
         List<XWPFRun> runs = paragraph.getRuns();
         for (int i = runs.size() - 1; i > 0; i--) {
             paragraph.removeRun(i);

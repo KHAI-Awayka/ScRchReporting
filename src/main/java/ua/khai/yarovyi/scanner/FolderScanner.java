@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 
 public class FolderScanner {
     private static final Logger LOGGER = LoggerFactory.getLogger(FolderScanner.class);
-    private static final String DOCX = ".docx";
+    private final String fileFormat;
+
+    public FolderScanner(String fileFormat) {
+        this.fileFormat = fileFormat;
+    }
 
     public List<String> searchDocuments(String path) {
         return searchDocuments(path, predicate -> true);
@@ -28,7 +32,7 @@ public class FolderScanner {
                                     .ofNullable(directory.listFiles())
                                     .orElseThrow(IllegalArgumentException::new))
                     .filter(File::isFile)
-                    .filter(item -> item.getName().endsWith(DOCX))
+                    .filter(item -> item.getName().endsWith(fileFormat))
                     .filter(item -> nameSearchCriteria.test(item.getName()))
                     .map(File::getAbsolutePath)
                     .collect(Collectors.toList());

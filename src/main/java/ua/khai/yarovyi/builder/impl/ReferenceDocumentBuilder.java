@@ -1,9 +1,10 @@
-package ua.khai.yarovyi.builder;
+package ua.khai.yarovyi.builder.impl;
 
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTAbstractNum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.khai.yarovyi.builder.DocumentBuilder;
 import ua.khai.yarovyi.model.Document;
 import ua.khai.yarovyi.model.ReferenceDocument;
 import ua.khai.yarovyi.wrapper.CTLvlWrapper;
@@ -15,21 +16,23 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReferenceDocumentBuilder {
+public class ReferenceDocumentBuilder implements DocumentBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceDocumentBuilder.class);
-    private static final String REFERENCE_FILE_PATH = "/home/awayka/Documents/refs.docx";
+    private final String outputDirectory;
 
     private int step;
     private CTAbstractNum ctAbstractNum;
 
-    public ReferenceDocumentBuilder() {
+    public ReferenceDocumentBuilder(String outputDirectory) {
+        this.outputDirectory = outputDirectory + "/refs.docx";
         step = 1;
         ctAbstractNum = CTAbstractNum.Factory.newInstance();
         ctAbstractNum.setAbstractNumId(BigInteger.ONE);
     }
 
-    public List<Document> buildReferenceDocument(List<ReferenceDocument> documents) {
+    public List<Document> buildDocument(List<? extends Document> documents) {
+        List<ReferenceDocument> referenceDocuments = (List<ReferenceDocument>) documents;
         LinkedList<Document> resultList = new LinkedList<>();
         XWPFDocument resultDocument = new XWPFDocument();
         resultDocument.createNumbering();
@@ -37,10 +40,10 @@ public class ReferenceDocumentBuilder {
         resultDocument.getNumbering().addNum(BigInteger.ONE);
 
 
-        documents.forEach(item -> processSingleDocument(item.getReferanceDocument(), resultDocument));
+        referenceDocuments.forEach(item -> processSingleDocument(item.getReferanceDocument(), resultDocument));
 
 
-        for (ReferenceDocument doc : documents) {
+        for (ReferenceDocument doc : referenceDocuments) {
             if (resultList.size() == 0) {
                 resultList.add(prepareDocument(doc, 0));
                 continue;
@@ -48,9 +51,9 @@ public class ReferenceDocumentBuilder {
             resultList.add(prepareDocument(doc, resultList.getLast().getReferenceOffset()));
         }
         try {
-            resultDocument.write(new FileOutputStream(new File(REFERENCE_FILE_PATH)));
+            resultDocument.write(new FileOutputStream(new File(outputDirectory)));
             resultDocument.close();
-            documents.forEach(item -> {
+            referenceDocuments.forEach(item -> {
                 try {
                     item.getReferanceDocument().close();
                 } catch (IOException e) {
@@ -59,7 +62,7 @@ public class ReferenceDocumentBuilder {
             });
 
         } catch (IOException e) {
-            LOGGER.warn("Could not create file at {}", REFERENCE_FILE_PATH);
+            LOGGER.warn("Could not create file at {}", outputDirectory);
         }
         return resultList;
     }

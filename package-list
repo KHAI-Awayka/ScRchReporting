@@ -1,0 +1,14 @@
+ua.khai.yarovyi
+ua.khai.yarovyi.builder
+ua.khai.yarovyi.builder.impl
+ua.khai.yarovyi.configuration
+ua.khai.yarovyi.exception
+ua.khai.yarovyi.model
+ua.khai.yarovyi.reader
+ua.khai.yarovyi.reader.impl
+ua.khai.yarovyi.replace
+ua.khai.yarovyi.replace.impl
+ua.khai.yarovyi.scanner
+ua.khai.yarovyi.search
+ua.khai.yarovyi.search.impl
+ua.khai.yarovyi.wrapper

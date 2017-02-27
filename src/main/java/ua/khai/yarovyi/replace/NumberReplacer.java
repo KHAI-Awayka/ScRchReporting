@@ -5,5 +5,5 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 @FunctionalInterface
 public interface NumberReplacer {
-    XWPFDocument replace(XWPFDocument document, int value);
+    XWPFDocument replace(XWPFDocument document, long value);
 }

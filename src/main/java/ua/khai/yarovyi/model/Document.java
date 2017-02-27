@@ -1,24 +1,17 @@
 package ua.khai.yarovyi.model;
 
 public class Document {
-    private int position;
-    private int referenceCount;
+
+    private long referenceOffset;
     private String filePath;
 
-    public int getPosition() {
-        return position;
+    public long getReferenceOffset() {
+        return referenceOffset;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
+    public void setReferenceOffset(long referenceOffset) {
+        this.referenceOffset = referenceOffset;
 
-    public int getReferenceCount() {
-        return referenceCount;
-    }
-
-    public void setReferenceCount(int referenceCount) {
-        this.referenceCount = referenceCount;
     }
 
     public String getFilePath() {
@@ -28,4 +21,13 @@ public class Document {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "referenceOffset=" + referenceOffset +
+                ", filePath='" + filePath + '\'' +
+                '}';
+    }
+
 }

@@ -8,6 +8,7 @@ import ua.khai.yarovyi.replace.NumberReplacer;
 import java.util.List;
 import java.util.function.Predicate;
 
+
 /**
  * Unused on current phase
  */
@@ -26,6 +27,7 @@ public class ParagraphNumberReplacer implements NumberReplacer {
     }
 
     private void updateParagraphValues(XWPFParagraph paragraph, long value) {
+
         List<XWPFRun> runs = paragraph.getRuns();
         for (int i = runs.size() - 1; i > 0; i--) {
             paragraph.removeRun(i);

@@ -10,6 +10,7 @@ public class DocumentHeaderPointSearcher implements EntryPointSearcher {
 
     private static final String DOCUMENT_HEADER_REGEX = "(0-9\\.\\s[A-ZА-Я])+";
 
+
     @Override
     public Optional<XWPFParagraph> searchEntryPoint(XWPFDocument document) {
         return document.getParagraphs()

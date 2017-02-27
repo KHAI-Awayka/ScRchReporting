@@ -2,11 +2,13 @@ package ua.khai.yarovyi.replace.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import ua.khai.yarovyi.replace.NumberReplacer;
 
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

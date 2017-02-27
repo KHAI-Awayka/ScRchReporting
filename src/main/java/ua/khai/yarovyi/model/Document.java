@@ -1,6 +1,7 @@
 package ua.khai.yarovyi.model;
 
 public class Document {
+
     private long referenceOffset;
     private String filePath;
 
@@ -10,6 +11,7 @@ public class Document {
 
     public void setReferenceOffset(long referenceOffset) {
         this.referenceOffset = referenceOffset;
+
     }
 
     public String getFilePath() {
@@ -27,4 +29,5 @@ public class Document {
                 ", filePath='" + filePath + '\'' +
                 '}';
     }
+
 }

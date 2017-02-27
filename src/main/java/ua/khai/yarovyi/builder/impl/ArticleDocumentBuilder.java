@@ -13,6 +13,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides implementation for compiling several .docx documents in single document
+ */
 public class ArticleDocumentBuilder implements DocumentBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleDocumentBuilder.class);
@@ -21,10 +24,22 @@ public class ArticleDocumentBuilder implements DocumentBuilder {
     private int paragraphIndex;
     private int tableIndex;
 
-    public ArticleDocumentBuilder(String outputPath){
+    /**
+     * Construct object of builder and prepare for future processing
+     *
+     * @param outputPath String parameter for result documents output directory
+     */
+    public ArticleDocumentBuilder(String outputPath) {
         this.outputPath = outputPath + "/articles.docx";
     }
 
+    /**
+     * Provides flow for document building. Supports style and content copy.
+     * Tables and images will be implemented in next versions
+     *
+     * @param documents List of document to process during building
+     * @return Initialized list of files for next step building step
+     */
     @Override
     public List<Document> buildDocument(List<? extends Document> documents) {
         paragraphIndex = 0;
@@ -45,15 +60,19 @@ public class ArticleDocumentBuilder implements DocumentBuilder {
             out.close();
         } catch (IOException ex) {
             LOGGER.warn("Could not open file {}", ex);
-
         } catch (InvalidFormatException ex) {
             LOGGER.warn("Could not copy image {}", ex);
-        } catch (XmlException e) {
-            e.printStackTrace();
+        } catch (XmlException ex) {
+            LOGGER.warn("Could not copy style {}", ex);
         }
         return resultList;
     }
 
+    /**
+     * Copy content elements
+     *
+     * @throws InvalidFormatException in case of unsupported or incorrect file type
+     */
     private void copyElements(XWPFDocument source, XWPFDocument target) throws InvalidFormatException {
         for (IBodyElement e : source.getBodyElements()) {
             if (e instanceof XWPFParagraph) {
@@ -76,6 +95,9 @@ public class ArticleDocumentBuilder implements DocumentBuilder {
         }
     }
 
+    /**
+     * Copy styles
+     */
     //Really silly method. Refactor it pls
     private void copyStyles(XWPFDocument source, XWPFDocument target) throws IOException, XmlException {
         CTStyles targetStyle = null;

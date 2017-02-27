@@ -23,6 +23,16 @@ public class FolderScanner {
         return searchDocuments(path, predicate -> true);
     }
 
+    /**
+     * Provides method for file search according file format, that was passed in constructor.
+     * Do not provide deep search. Also, can be added additional search criteria.This criteria will be checked
+     * after selection by file format.
+     * Do not check accessibility of files
+     *
+     * @param path               base path to folder
+     * @param nameSearchCriteria additional criteria of search
+     * @return initialized list of absolute paths to suitable files
+     */
     public List<String> searchDocuments(String path, Predicate<String> nameSearchCriteria) {
         File directory = new File(path);
         if (directory.isDirectory()) {

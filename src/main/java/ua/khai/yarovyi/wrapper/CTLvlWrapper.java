@@ -6,7 +6,18 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
 import java.math.BigInteger;
 
+/**
+ * Wrapper for  {@link org.openxmlformats.schemas.wordprocessingml.x2006.main.CTLvl CTLvl}
+ */
 public class CTLvlWrapper {
+
+    /**
+     * Prepare base CTLvl with default .docx styles.
+     *
+     * @param abstractNum list in which CTLvl should be added
+     * @param step        position on which it should be added
+     * @return initialized object
+     */
     public static CTLvl prepareCtlvl(XWPFAbstractNum abstractNum, int step) {
         CTLvl lvl = abstractNum.getCTAbstractNum().addNewLvl();
         lvl.setIlvl(BigInteger.valueOf(0));

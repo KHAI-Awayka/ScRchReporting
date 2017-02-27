@@ -16,6 +16,9 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Provides implementation for compiling several numbering lists to single .docx
+ */
 public class ReferenceDocumentBuilder implements DocumentBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceDocumentBuilder.class);
@@ -24,6 +27,12 @@ public class ReferenceDocumentBuilder implements DocumentBuilder {
     private int step;
     private CTAbstractNum ctAbstractNum;
 
+    /**
+     * Base configuration for creating reference list as numbering in single .docx document
+     * Result document will be stored according to outputDirectory + refs.docx
+     *
+     * @param outputDirectory String parameter for result documents output directory
+     */
     public ReferenceDocumentBuilder(String outputDirectory) {
         this.outputDirectory = outputDirectory + "/refs.docx";
         step = 1;
@@ -31,6 +40,13 @@ public class ReferenceDocumentBuilder implements DocumentBuilder {
         ctAbstractNum.setAbstractNumId(BigInteger.ONE);
     }
 
+    /**
+     * Creates refs.docx file in specified in constructor output directory
+     * Currently style copy is unsupported. Provides only creating numbering list
+     *
+     * @param documents List of document to process during building
+     * @return Initialized list of files for next step building step
+     */
     public List<Document> buildDocument(List<? extends Document> documents) {
         List<ReferenceDocument> referenceDocuments = (List<ReferenceDocument>) documents;
         LinkedList<Document> resultList = new LinkedList<>();

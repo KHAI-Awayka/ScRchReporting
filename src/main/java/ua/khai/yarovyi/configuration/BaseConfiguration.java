@@ -10,6 +10,12 @@ import java.util.Map;
 
 public class BaseConfiguration {
 
+    /**
+     * Loads base configuration from properties.json file.
+     *
+     * @return Initialized key-value dictionary with sting properties
+     * @throws IOException in case if JSON is invalid or file was no found
+     */
     public static Map<String, String> init() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File from = new File(BaseConfiguration.class.getClassLoader().getResource("properties.json").getFile());
